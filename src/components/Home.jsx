@@ -1,5 +1,5 @@
-import heroImg from "../assets/heroImg.png";
-import asetBundel from "../assets/asetBundel.png";
+import heroImg from "../assets/heroimg.png";
+import asetBundel from "../assets/asetBundel1.png";
 import fotoAll from "../assets/fotoall.png";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
