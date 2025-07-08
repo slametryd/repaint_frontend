@@ -12,6 +12,13 @@ import AdminRoute from "./components/adminRoute";
 import ResetPassword from "./pages/LupaPassword";
 import ResetPage from "./pages/ResetPage";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
+fetch(`${API_URL}`)
+  .then((response) => response.json())
+  .then((data) => console.log(data))
+  .catch((error) => console.error("Error:", error));
+
 function App() {
   return (
     <AuthProvider>
