@@ -4,16 +4,14 @@ import axios from "axios";
 function ForgotPassword() {
   const [email, setEmail] = useState("");
   const [msg, setMsg] = useState("");
+  const baseURL = import.meta.env.VITE_API_URL;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/auth/forgot-password",
-        {
-          email,
-        }
-      );
+      const response = await axios.post(`${baseURL}/api/auth/forgot-password`, {
+        email,
+      });
       setMsg(response.data.msg);
     } catch (error) {
       setMsg(error.response?.data?.msg || "Gagal mengirim email reset");

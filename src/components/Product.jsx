@@ -10,6 +10,7 @@ function Booking() {
 
   const location = useLocation();
   const { picture, judul, harga, deskripsi } = location.state || {};
+  const baseURL = import.meta.env.VITE_API_URL;
 
   return (
     <div className="w-ful">
@@ -25,7 +26,7 @@ function Booking() {
         <div className="flex  justify-between gap-40 pt-20">
           <div className="">
             <img
-              src={`http://localhost:5000/uploads/${picture}`}
+              src={`${baseURL}/uploads/${picture}`}
               className="w-[300px] mx-auto  rounded-md"
               alt=""
             />

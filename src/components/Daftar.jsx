@@ -15,11 +15,13 @@ const Daftar = () => {
   const [confPassword, setConfPassword] = useState("");
   const [msg, setMsg] = useState(""); // Untuk pesan error
 
+  const baseURL = import.meta.env.VITE_API_URL;
+
   const navigate = useNavigate();
   const Register = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5000/api/auth/users", {
+      await axios.post(`${baseURL}/api/auth/users`, {
         name: name,
         email: email,
         password: password,
@@ -45,12 +47,9 @@ const Daftar = () => {
       const idToken = await user.getIdToken();
 
       // 3. Kirim ID Token ke backend (bukan data mentah)
-      const response = await axios.post(
-        "http://localhost:5000/api/auth/google-login",
-        {
-          token: idToken,
-        }
-      );
+      const response = await axios.post(`${baseURL}/api/auth/google-login`, {
+        token: idToken,
+      });
 
       // 4. Simpan data user (yang sudah diverifikasi backend)
       localStorage.setItem("user", JSON.stringify(response.data.user));

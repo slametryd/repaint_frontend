@@ -15,6 +15,7 @@ function MasukLogin() {
   const navigate = useNavigate();
 
   const { login } = useContext(AuthContext);
+  const baseURL = import.meta.env.VITE_API_URL;
 
   // ✅ Login dengan Google
   const handleGoogleLogin = async () => {
@@ -24,7 +25,7 @@ function MasukLogin() {
       const googleIdToken = await firebaseUser.getIdToken();
 
       const response = await axios.post(
-        "http://localhost:5000/api/auth/google-login",
+        `${baseURL}/api/auth/google-login`,
         { token: googleIdToken },
         { withCredentials: true }
       );
@@ -58,7 +59,7 @@ function MasukLogin() {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/auth/login",
+        `${baseURL}/api/auth/login`,
         { email, password },
         { withCredentials: true }
       );

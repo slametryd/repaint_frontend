@@ -39,6 +39,7 @@ const Home = ({ sectionRefs }) => {
   const { user, login } = useContext(AuthContext);
   const location = useLocation();
   const [showModel, setShowModel] = useState(false);
+  const baseURL = import.meta.env.VITE_API_URL;
 
   const { berandaRef, tentangKamiRef, layananKamiRef, galeriRef, faqRef } =
     sectionRefs;
@@ -53,7 +54,7 @@ const Home = ({ sectionRefs }) => {
   useEffect(() => {
     const fetchProduk = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/produk");
+        const response = await axios.get(`${baseURL}/api/produk`);
         setProduk(response.data);
       } catch (error) {
         console.error("Gagal mengambil produk:", error);
@@ -80,7 +81,7 @@ const Home = ({ sectionRefs }) => {
     }
 
     try {
-      const response = await axios.get("http://localhost:5000/api/auth/users", {
+      const response = await axios.get(`${baseURL}/api/auth/users`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },

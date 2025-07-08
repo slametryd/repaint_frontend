@@ -26,6 +26,8 @@ function Booking() {
   const today = new Date().toISOString().split("T")[0];
   const [showModel, setShowModel] = useState(false);
 
+  const baseURL = import.meta.env.VITE_API_URL;
+
   // State untuk menampung data dari backend
   const [motorOptions, setMotorOptions] = useState([]);
   const [warnaOptions, setWarnaOptions] = useState([]);
@@ -33,7 +35,7 @@ function Booking() {
   useEffect(() => {
     const fetchOptions = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/motor-options");
+        const res = await axios.get(`${baseURL}/api/motor-options`);
         setMotorOptions(res.data.jenisMotor);
         setWarnaOptions(res.data.warnaMotor);
       } catch (err) {

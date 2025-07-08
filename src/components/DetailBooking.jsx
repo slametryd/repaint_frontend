@@ -17,6 +17,7 @@ function DetailBooking() {
   const user = JSON.parse(localStorage.getItem("user"));
   const userEmail = user?.email || "email-default@example.com";
   const [showModel, setShowModel] = useState(false);
+  const baseURL = import.meta.env.VITE_API_URL;
 
   const {
     picture = "",
@@ -46,7 +47,7 @@ function DetailBooking() {
 
       const order_id = `ORDER-${Date.now()}`;
 
-      await axios.post("http://localhost:5000/api/bookings", {
+      await axios.post(`${baseURL}/api/bookings`, {
         nama,
         noWa,
         tanggal,
@@ -60,7 +61,7 @@ function DetailBooking() {
       });
 
       // Ambil Snap Token dari Midtrans
-      const res = await axios.post("http://localhost:5000/api/payment-token", {
+      const res = await axios.post(`${baseURL}/api/payment-token`, {
         order_id,
         gross_amount: total_harga,
         name: user?.name || "Customer Default",
@@ -75,7 +76,7 @@ function DetailBooking() {
           console.log("Success", result);
 
           // Kirim email
-          await axios.post("http://localhost:5000/api/send-email", {
+          await axios.post(`${baseURL}/api/send-email`, {
             nama,
             noWa,
             judul,
@@ -94,12 +95,9 @@ function DetailBooking() {
           });
 
           // Update status pembayaran
-          await axios.put(
-            `http://localhost:5000/api/booking-status/${result.order_id}`,
-            {
-              status: result.transaction_status,
-            }
-          );
+          await axios.put(`${baseURL}/api/booking-status/${result.order_id}`, {
+            status: result.transaction_status,
+          });
 
           // ✅ Navigasi ke home setelah semua proses selesai
           navigate("/", { replace: true });
@@ -109,7 +107,7 @@ function DetailBooking() {
           alert("Menunggu pembayaran...");
           console.log("Pending", result);
 
-          await axios.post("http://localhost:5000/api/send-email", {
+          await axios.post(`${baseURL}/api/send-email`, {
             nama,
             noWa,
             judul,
