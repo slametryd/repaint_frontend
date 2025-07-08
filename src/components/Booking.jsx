@@ -1,9 +1,6 @@
 import React from "react";
-import asetBundel from "../assets/asetBundel.png";
 import Footer from "./Footer";
-
 import { useNavigate } from "react-router-dom";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowLeft,
