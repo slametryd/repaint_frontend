@@ -188,7 +188,7 @@ const Home = ({ sectionRefs }) => {
                 className="box rounded-md max-w-[400px] pb-7 shadow-md "
               >
                 <img
-                  src={`http://localhost:5000/uploads/${item.picture}`}
+                  src={`${baseURL}/uploads/${item.picture}`}
                   className="w-[400px] h-[200px] object-cover rounded-t-md mb-5 "
                   alt=""
                 />
