@@ -12,6 +12,7 @@ function UploadProduct() {
   const [pindahMenu, setPindahMenu] = useState("upload");
   const [produkList, setProdukList] = useState([]);
   const [editId, setEditId] = useState(null);
+  const baseURL = import.meta.env.VITE_API_URL;
   const formatDate = (dateString) => {
     const options = {
       year: "numeric",
@@ -27,7 +28,7 @@ function UploadProduct() {
     if (pindahMenu === "produkSaya") {
       const fetchProduk = async () => {
         try {
-          const res = await axios.get("http://localhost:5000/api/produk");
+          const res = await axios.get(`${baseURL}/api/produk`);
           setProdukList(res.data);
         } catch (error) {
           console.error("Gagal mengambil produk:", error);
@@ -45,7 +46,7 @@ function UploadProduct() {
     if (!konfirmasi) return;
 
     try {
-      await axios.delete(`http://localhost:5000/api/produk/${id}`);
+      await axios.delete(`${baseURL}/api/produk/${id}`);
       // Refresh daftar produk
       setProdukList((prev) => prev.filter((item) => item.id !== id));
     } catch (error) {
@@ -58,7 +59,7 @@ function UploadProduct() {
     setJudul(produk.judul);
     setHarga(produk.harga);
     setDeskripsi(produk.deskripsi);
-    setPreview(`http://localhost:5000/uploads/${produk.picture}`);
+    setPreview(`${baseURL}/uploads/${produk.picture}`);
     setPicture(null); // karena kita belum ganti gambar
     setEditId(produk.id); // simpan ID produk
     setPindahMenu("upload");
@@ -85,13 +86,9 @@ function UploadProduct() {
     try {
       if (editId) {
         // Mode edit
-        await axios.put(
-          `http://localhost:5000/api/produk/${editId}`,
-          formData,
-          {
-            headers: { "Content-Type": "multipart/form-data" },
-          }
-        );
+        await axios.put(`${baseURL}/api/produk/${editId}`, formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
         alert("Produk berhasil diupdate!");
 
         // Update produkList secara lokal tanpa fetch ulang
@@ -110,12 +107,12 @@ function UploadProduct() {
         );
       } else {
         // Mode tambah
-        await axios.post("http://localhost:5000/api/produk", formData);
+        await axios.post(`${baseURL}/api/produk`, formData);
         alert("Produk berhasil disimpan!");
 
         // Setelah tambah, fetch ulang produk atau bisa push produk baru ke produkList
         // Cara simpel: fetch ulang seluruh produk (opsional, tergantung backend response)
-        const res = await axios.get("http://localhost:5000/api/produk");
+        const res = await axios.get(`${baseURL}/api/produk`);
         setProdukList(res.data);
       }
 
@@ -219,7 +216,7 @@ function UploadProduct() {
                   className="p-4 rounded shadow hover:shadow-md transition relative border"
                 >
                   <img
-                    src={`http://localhost:5000/uploads/${produk.picture}`}
+                    src={`${baseURL}/uploads/${produk.picture}`}
                     alt={produk.judul}
                     className="w-full h-48 object-cover rounded mb-2"
                   />

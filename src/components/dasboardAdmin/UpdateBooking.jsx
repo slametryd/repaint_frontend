@@ -11,6 +11,7 @@ function UpdateBooking() {
   const [jenisList, setJenisList] = useState([]);
   const [editWarnaId, setEditWarnaId] = useState(null);
   const [editJenisId, setEditJenisId] = useState(null);
+  const baseURL = import.meta.env.VITE_API_URL;
   const formatDate = (dateString) => {
     const options = {
       year: "numeric",
@@ -28,8 +29,8 @@ function UpdateBooking() {
 
   const fetchData = async () => {
     try {
-      const warnaRes = await axios.get("http://localhost:5000/api/warna_motor");
-      const jenisRes = await axios.get("http://localhost:5000/api/jenis_motor");
+      const warnaRes = await axios.get(`${baseURL}/api/warna_motor`);
+      const jenisRes = await axios.get(`${baseURL}/api/jenis_motor`);
 
       setWarnaList(warnaRes.data);
       setJenisList(jenisRes.data);
@@ -43,23 +44,17 @@ function UpdateBooking() {
 
     try {
       if (editWarnaId) {
-        await axios.put(
-          `http://localhost:5000/api/warna_motor/${editWarnaId}`,
-          { warna }
-        );
+        await axios.put(`${baseURL}/api/warna_motor/${editWarnaId}`, { warna });
         setEditWarnaId(null);
       } else if (warna) {
-        await axios.post("http://localhost:5000/api/warna_motor", { warna });
+        await axios.post(`${baseURL}/api/warna_motor`, { warna });
       }
 
       if (editJenisId) {
-        await axios.put(
-          `http://localhost:5000/api/jenis_motor/${editJenisId}`,
-          { jenis }
-        );
+        await axios.put(`${baseURL}/api/jenis_motor/${editJenisId}`, { jenis });
         setEditJenisId(null);
       } else if (jenis) {
-        await axios.post("http://localhost:5000/api/jenis_motor", { jenis });
+        await axios.post(`${baseURL}/api/jenis_motor`, { jenis });
       }
 
       alert("Data berhasil disimpan!");
@@ -73,7 +68,7 @@ function UpdateBooking() {
 
   const handleDeleteWarna = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/warna_motor/${id}`);
+      await axios.delete(`${baseURL}/api/warna_motor/${id}`);
       fetchData();
     } catch (error) {
       alert("Gagal menghapus warna");
@@ -82,7 +77,7 @@ function UpdateBooking() {
 
   const handleDeleteJenis = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/jenis_motor/${id}`);
+      await axios.delete(`${baseURL}/api/jenis_motor/${id}`);
       fetchData();
     } catch (error) {
       alert("Gagal menghapus jenis");
@@ -94,15 +89,12 @@ function UpdateBooking() {
     e.preventDefault();
     try {
       if (editWarnaId) {
-        await axios.put(
-          `http://localhost:5000/api/warna_motor/${editWarnaId}`,
-          {
-            warna,
-          }
-        );
+        await axios.put(`${baseURL}/warna_motor/${editWarnaId}`, {
+          warna,
+        });
         setEditWarnaId(null);
       } else {
-        await axios.post("http://localhost:5000/api/warna_motor", { warna });
+        await axios.post(`${baseURL}/api/warna_motor`, { warna });
       }
       setWarna("");
       fetchData();

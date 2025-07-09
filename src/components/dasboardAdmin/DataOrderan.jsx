@@ -4,14 +4,15 @@ import axios from "axios";
 function DataOrderan() {
   const [booking, setBooking] = useState([]);
   const [produk, setProduk] = useState([]);
+  const baseURL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const resBooking = await axios.get("http://localhost:5000/api/booking");
+        const resBooking = await axios.get(`${baseURL}/api/booking`);
         setBooking(resBooking.data);
 
-        const resProduk = await axios.get("http://localhost:5000/api/produk");
+        const resProduk = await axios.get(`${baseURL}/api/produk`);
         setProduk(resProduk.data);
       } catch (error) {
         console.error("Gagal memuat data", error);

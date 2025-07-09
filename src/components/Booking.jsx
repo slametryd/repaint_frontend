@@ -176,7 +176,7 @@ function Booking() {
           {picture && (
             <div className=" md:w-auto mt-10 md:mt-0 ">
               <img
-                src={`http://localhost:5000/uploads/${picture}`}
+                src={`${baseURL}/uploads/${picture}`}
                 className="w-[400px] mx-auto  rounded-2xl"
                 alt=""
               />
