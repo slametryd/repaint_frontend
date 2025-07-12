@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowLeft,
   faTriangleExclamation,
+  faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { useLocation } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
@@ -72,7 +73,7 @@ function DetailBooking() {
 
       window.snap.pay(snapToken, {
         onSuccess: async function (result) {
-          alert("pembayaran berhasil");
+          setShowModel(true);
           console.log("Success", result);
 
           // Kirim email
@@ -244,32 +245,36 @@ function DetailBooking() {
             </button>
           </div>
         </div>
-        {/* {showModel && (
-          <div className="popUp  fixed bg-black/50 min-h-screen z-10 w-screen flex justify-center items-center top-0 left-0">
-            <div className=" relative rounded-2xl w-[400px] h-[200px] bg-white p-4 flex flex-col gap-4 items-center">
-              <span className="text-5xl text-red-500 text-center">
-                <FontAwesomeIcon icon={faTriangleExclamation} />
-              </span>
-              <h2 className="text-xl font-bold ">Harap isi semua data!</h2>
-              <p className="text-center font-medium text-gray-400 text-[14px]">
-                Untuk memudahkan proses booking data yang dibutuhkan harap
-                dilengkapi
-              </p>
-              <div
-                onClick={() => setShowModel(false)}
-                className="absolute top-4 font-black right-4 cursor-pointer hover:bg-gray-500 px-4 py-3 rounded-md hover:text-white"
-              >
-                <span>
-                  <FontAwesomeIcon icon={faXmark} />
-                </span>
-              </div>
-            </div>
-          </div>
-        )} */}
       </div>
       <div>
         <Footer />
       </div>
+      {showModel && (
+        <div className="popUp  fixed bg-black/50 min-h-screen z-10 w-screen flex justify-center items-center top-0 left-0">
+          <div className=" relative rounded-2xl w-[400px] h-[200px] bg-white p-4 flex flex-col gap-4 items-center">
+            <span className="text-5xl text-red-500 text-center">
+              <FontAwesomeIcon icon={faTriangleExclamation} />
+            </span>
+            <h2 className="text-xl font-bold ">
+              Terimkasih, sudah order jasa kami.{" "}
+            </h2>
+            <p className="text-center font-medium text-gray-400 text-[14px]">
+              Kembali ke Home
+            </p>
+            <button className="bg-[#FD1E0D] font-medium text-center px-3 py-2 rounded-full font text-white hover:bg-[#ED1100] transition-all ">
+              Home
+            </button>
+            <div
+              onClick={() => setShowModel(false)}
+              className="absolute top-4 font-black right-4 cursor-pointer hover:bg-gray-500 px-4 py-3 rounded-md hover:text-white"
+            >
+              <span>
+                <FontAwesomeIcon icon={faXmark} />
+              </span>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
