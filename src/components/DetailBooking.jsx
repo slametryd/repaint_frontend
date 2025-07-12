@@ -259,11 +259,14 @@ function DetailBooking() {
               Terimkasih, sudah order jasa kami.{" "}
             </h2>
             <p className="text-center font-medium text-gray-400 text-[14px]">
-              Kembali ke Home
+              Kembali ke{" "}
+              <span
+                onClick={() => navigate("/")}
+                className="text-red-500 font-bold"
+              >
+                Home
+              </span>
             </p>
-            <button className="bg-[#FD1E0D] font-medium text-center px-3 py-2 rounded-full font text-white hover:bg-[#ED1100] transition-all ">
-              Home
-            </button>
             <div
               onClick={() => setShowModel(false)}
               className="absolute top-4 font-black right-4 cursor-pointer hover:bg-gray-500 px-4 py-3 rounded-md hover:text-white"
